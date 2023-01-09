@@ -1,0 +1,47 @@
+{
+  "name": "e-commercean",
+  "version": "1.0.0",
+  "description": "Proyek untuk Dicoding mengenai WebComponent, Webpack dan AJAX",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-dev": "webpack serve --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "lint": "eslint ./ --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jerdasi/e-commercean.git"
+  },
+  "author": "JeremiaDS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jerdasi/e-commercean/issues"
+  },
+  "homepage": "https://github.com/jerdasi/e-commercean#readme",
+  "dependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "babel-loader": "^9.1.2",
+    "css-loader": "^6.7.3",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1",
+    "tailwindcss": "^3.2.4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1",
+    "webpack-merge": "^5.8.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.13",
+    "eslint": "^8.31.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "postcss": "^8.4.21",
+    "postcss-loader": "^7.0.2",
+    "postcss-preset-env": "^7.8.3",
+    "prettier": "^2.8.2",
+    "regenerator-runtime": "^0.13.11"
+  }
+}
