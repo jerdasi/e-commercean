@@ -1,46 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-Commercean</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
 </head>
-<body class="bg-tema-hitam">
-    <header class="bg-tema-cokelat text-white">
-        <nav class="flex h-16 items-center px-4">
-            <span class="logo font-bold">E-Commercean</span>
-            <ul class="ml-auto flex gap-6">
-                <li class="cursor-pointer hover:text-tema-accent">About Me</li>
-                <li class="cursor-pointer">Cart</li>
-                <li class="cursor-pointer">All Products</li>
-            </ul>
-        </nav>
-    </header>    
-    <main class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mt-8 px-4">
-        <div class="card-item h-[20vh] bg-tema-cokelat text-white p-4">
-            Tes
+
+<body class="bg-tema-hitam relative">
+    <app-bar></app-bar>
+    <main class="products-wrapper grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mt-8 px-4"></main>
+
+    <section class="carts-wrapper z-50 bg-[#000]/[.7] w-[100vw] h-[100vh] fixed top-0 p-4">
+        <div class="carts-wrapper__header text-right">
+            <button class="text-3xl font-bold">X</button>
         </div>
-        <div class="card-item h-[20vh] bg-tema-cokelat text-white p-4">
-            Tes
+        <div class="carts-wrapper__body text-center w-full h-full flex items-center justify-center mb-4">
+            <div class="w-full md:w-[50%] h-[75%] bg-tema-cokelat rounded p-6 text-[#000] text-left">
+                <h3 class="text-h3 font-semibold">Halo Jeremia</h3>
+                <div class="container-list mt-4 overflow-auto flex flex-col">
+                    <div class="container-list__item h-32 w-full bg-tema-accent rounded p-4 flex gap-4">
+                        <div class="container-list__item--image w-32 h-full">
+                            <img src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg" alt=""
+                                class="w-full h-full rounded object-cover hover:object-contain border border-tema-cokelat">
+                        </div>
+                        <div
+                            class="container-list__item--description basis-full bg-tema-cokelat w-full h-full p-2 flex flex-col justify-between">
+                            <h5 class="text-h5">Ini Nama Item</h5>
+                            <h6 class="text-sm">Ini Harga</h6>
+                            <div class="tools w-32 h-fit grid grid-cols-3">
+                                <button class="border rounded-l">-</button>
+                                <div class="border text-center">1</div>
+                                <button class="border rounded-r">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card-item h-[20vh] bg-tema-cokelat text-white p-4">
-            Tes
-        </div>
-        <div class="card-item h-[20vh] bg-tema-cokelat text-white p-4">
-            Tes
-        </div>
-        <div class="card-item h-[20vh] bg-tema-cokelat text-white p-4">
-            Tes
-        </div>
-        <div class="card-item h-[20vh] bg-tema-cokelat text-white p-4">
-            Tes
-        </div>
-        <div class="card-item h-[20vh] bg-tema-cokelat text-white p-4">
-            Tes
-        </div>
-    </main>
+    </section>
 </body>
+
 </html>

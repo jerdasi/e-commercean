@@ -5,7 +5,16 @@ class AppBar extends HTMLElement {
 
   render() {
     this.innerHTML = `
-      <button class='bg-red text-white'>Tes</button>
+    <header class="bg-tema-cokelat text-white">
+    <nav class="flex h-16 items-center px-4">
+        <span class="logo font-bold">E-Commercean</span>
+        <ul class="ml-auto flex gap-6">
+            <li class="cursor-pointer hover:text-tema-accent">About Me</li>
+            <li class="cursor-pointer cart-link">Cart</li>
+            <li class="cursor-pointer">All Products</li>
+        </ul>
+    </nav>
+</header>
         `;
   }
 }
