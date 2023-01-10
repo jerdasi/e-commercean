@@ -1,4 +1,5 @@
 import './cart-wrapper';
+// eslint-disable-next-line import/no-unresolved
 import Swal from 'sweetalert2';
 
 class CartItem extends HTMLElement {
@@ -7,6 +8,7 @@ class CartItem extends HTMLElement {
     this.render();
   }
 
+  // eslint-disable-next-line class-methods-use-this
   showAlert(text) {
     Swal.fire({
       title: 'Success!',
@@ -46,28 +48,30 @@ class CartItem extends HTMLElement {
     `;
 
     this.querySelector('.tools .tools-tambah').addEventListener('click', () => {
-      let oldData = JSON.parse(window.localStorage.getItem('cart'));
+      const oldData = JSON.parse(window.localStorage.getItem('cart'));
 
-      let isAlready = oldData.findIndex((item) => item.id == this._item.id);
+      const isAlready = oldData.findIndex((item) => item.id === this._item.id);
       oldData[isAlready].total += 1;
 
-      let cart_wrapper = document.querySelector('cart-wrapper');
-      cart_wrapper.items = oldData;
-      this.showAlert(`Menambahkan ${oldData[isAlready].title} sebanyak 1 buah`)
+      const cartWrapper = document.querySelector('cart-wrapper');
+      cartWrapper.items = oldData;
+      this.showAlert(`Menambahkan ${oldData[isAlready].title} sebanyak 1 buah`);
 
       window.localStorage.setItem('cart', JSON.stringify(oldData));
     });
 
     this.querySelector('.tools .tools-kurang').addEventListener('click', () => {
-      let oldData = JSON.parse(window.localStorage.getItem('cart'));
+      const oldData = JSON.parse(window.localStorage.getItem('cart'));
 
-      let isAlready = oldData.findIndex((item) => item.id == this._item.id);
+      const isAlready = oldData.findIndex((item) => item.id === this._item.id);
       oldData[isAlready].total -= 1;
 
-      let cart_wrapper = document.querySelector('cart-wrapper');
-      cart_wrapper.items = oldData;
-      this.showAlert(`Mengurangkan ${oldData[isAlready].title} sebanyak 1 buah`);
-      
+      const cartWrapper = document.querySelector('cart-wrapper');
+      cartWrapper.items = oldData;
+      this.showAlert(
+        `Mengurangkan ${oldData[isAlready].title} sebanyak 1 buah`
+      );
+
       window.localStorage.setItem('cart', JSON.stringify(oldData));
     });
   }

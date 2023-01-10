@@ -17,7 +17,7 @@ module.exports = {
     'no-underscore-dangle': 0,
     'import/no-extraneous-dependencies': 0,
     'at-rule-no-unknown': [
-      true,
+      0,
       {
         ignoreAtRules: [
           'extends',
@@ -29,5 +29,6 @@ module.exports = {
         ],
       },
     ],
+    'comma-dangle': 0,
   },
 };

@@ -1,6 +1,8 @@
 import '../components/app-bar';
 import '../components/cart-wrapper';
 import '../components/cart-item';
+// eslint-disable-next-line import/no-unresolved
+import Swal from 'sweetalert2';
 
 const PRODUCTS_WRAPPER = 'products-wrapper';
 const BUTTON_CLOSE_MODAL_CART = 'carts-wrapper__header button';
@@ -10,36 +12,12 @@ const LINK_OPEN_MODAL_CART = 'cart-link';
 function main() {
   const cartWrapperElement = document.querySelector('cart-wrapper');
 
-  const fetchAllProducts = async () => {
-    try {
-      document.querySelector('.category').innerText = 'Semua';
-      const response = await fetch('https://fakestoreapi.com/products');
-      const responseJson = await response.json();
-      renderAllProduct(responseJson);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchProductByCategory = async (category) => {
-    try {
-      document.querySelector('.category').innerText = category;
-      const response = await fetch(`https://fakestoreapi.com/products/category/${category}`);
-      const responseJson = await response.json();
-      renderAllProduct(responseJson);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const fetchAllCategories = async () => {
-    try {
-      const response = await fetch('https://fakestoreapi.com/products/categories');
-      const responseJson = await response.json();
-      renderAllCategories(responseJson);
-    } catch (error) {
-      console.log(error);
-    }
+  const showSwalError = (message) => {
+    Swal.fire({
+      title: 'Error',
+      text: message,
+      icon: 'error',
+    });
   };
 
   const fetchAllCarts = () => {
@@ -47,66 +25,41 @@ function main() {
       const allData = JSON.parse(window.localStorage.getItem('cart'));
       cartWrapperElement.items = allData;
     } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const renderAllCategories = (categories) => {
-    const listCategories = document.createElement('ul');
-    const categoryElement = document.createElement('li');
-      categoryElement.innerText = "Semua";
-      categoryElement.classList.add('cursor-pointer', 'pt-2')
-      categoryElement.addEventListener('click', () => {
-        fetchAllProducts();
-      })
-      listCategories.appendChild(categoryElement);
-    categories.forEach(category => {
-      const categoryElement = document.createElement('li');
-      categoryElement.innerText = category;
-      categoryElement.classList.add('cursor-pointer', 'pt-2')
-      categoryElement.addEventListener('click', () => {
-        fetchProductByCategory(category);
-      })
-      listCategories.appendChild(categoryElement);
-    })
-    document.querySelector('.list-category').appendChild(listCategories);
-  }
-
-  const addToCart = async (product) => {
-    try {
-      if (typeof !Storage !== 'undefined') {
-        let oldData = JSON.parse(window.localStorage.getItem('cart'));
-        let isAlready = oldData.findIndex(item => item.id == product.id);
-        const cartAddData = {
-          id: product.id,
-          title: product.title,
-          price: product.price,
-          image: product.image,
-          total: 1
-        }
-        if(isAlready == -1) {
-          oldData.push(cartAddData);
-        } else {
-          oldData[isAlready].total += 1;
-        }
-        
-        console.log({
-          oldData
-        });
-        window.localStorage.setItem('cart', JSON.stringify(oldData));
-        fetchAllCarts();
-      }
-    } catch (error) {
-      console.log(error);
+      showSwalError(error.message);
     }
   };
 
   const renderAllProduct = (products) => {
-    let products_wrapper = document.querySelector(`.${PRODUCTS_WRAPPER}`);
-    products_wrapper.innerHTML = '';
+    const productsWrapper = document.querySelector(`.${PRODUCTS_WRAPPER}`);
+    productsWrapper.innerHTML = '';
+
+    const addToCart = async (product) => {
+      try {
+        if (typeof !Storage !== 'undefined') {
+          const oldData = JSON.parse(window.localStorage.getItem('cart'));
+          const isAlready = oldData.findIndex((item) => item.id === product.id);
+          const cartAddData = {
+            id: product.id,
+            title: product.title,
+            price: product.price,
+            image: product.image,
+            total: 1,
+          };
+          if (isAlready === -1) {
+            oldData.push(cartAddData);
+          } else {
+            oldData[isAlready].total += 1;
+          }
+          window.localStorage.setItem('cart', JSON.stringify(oldData));
+          fetchAllCarts();
+        }
+      } catch (error) {
+        showSwalError(error.message);
+      }
+    };
 
     products.forEach((item, index) => {
-      products_wrapper.innerHTML += `
+      productsWrapper.innerHTML += `
         <div
         class="card-item h-[50vh] bg-tema-cokelat text-white rounded relative group hover:border border-tema-accent flex flex-col">
         <img src="${item.image}" alt=""
@@ -131,6 +84,63 @@ function main() {
         addToCart(products[event.target.id]);
       });
     });
+  };
+
+  const fetchAllProducts = async () => {
+    try {
+      document.querySelector('.category').innerText = 'Semua';
+      const response = await fetch('https://fakestoreapi.com/products');
+      const responseJson = await response.json();
+      renderAllProduct(responseJson);
+    } catch (error) {
+      showSwalError(error.message);
+    }
+  };
+
+  const fetchProductByCategory = async (category) => {
+    try {
+      document.querySelector('.category').innerText = category;
+      const response = await fetch(
+        `https://fakestoreapi.com/products/category/${category}`
+      );
+      const responseJson = await response.json();
+      renderAllProduct(responseJson);
+    } catch (error) {
+      showSwalError(error.message);
+    }
+  };
+
+  const renderAllCategories = (categories) => {
+    const listCategories = document.createElement('ul');
+    const categoryElementSemua = document.createElement('li');
+    categoryElementSemua.innerText = 'Semua';
+    categoryElementSemua.classList.add('cursor-pointer', 'pt-2');
+    categoryElementSemua.addEventListener('click', () => {
+      fetchAllProducts();
+    });
+    listCategories.appendChild(categoryElementSemua);
+    categories.forEach((category) => {
+      const categoryElement = document.createElement('li');
+      categoryElement.innerText = category;
+      categoryElement.classList.add('cursor-pointer', 'pt-2');
+      categoryElement.addEventListener('click', () => {
+        fetchProductByCategory(category);
+      });
+      listCategories.appendChild(categoryElement);
+    });
+    document.querySelector('.list-category').appendChild(listCategories);
+  };
+
+  const fetchAllCategories = async () => {
+    try {
+      const response = await fetch(
+        'https://fakestoreapi.com/products/categories'
+      );
+      const responseJson = await response.json();
+      renderAllCategories(responseJson);
+    } catch (error) {
+      showSwalError(error.message);
+    }
   };
 
   const toggleCartSection = () => {
