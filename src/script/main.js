@@ -9,7 +9,7 @@ const BUTTON_CLOSE_MODAL_CART = 'carts-wrapper__header button';
 const CARTS_WRAPPER = 'carts-wrapper';
 const LINK_OPEN_MODAL_CART = 'cart-link';
 
-function main() {
+const main = () => {
   const cartWrapperElement = document.querySelector('cart-wrapper');
 
   const showSwalError = (message) => {
@@ -171,6 +171,6 @@ function main() {
     fetchAllCarts();
     toggleCartSection();
   });
-}
+};
 
 export default main;
